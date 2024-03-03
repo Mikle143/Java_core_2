@@ -2,10 +2,11 @@ package ru.vdovinmb.javaCore2.homeWork5.Task1;
 
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 
 public class Chat {
     private String chatName;
-    private int number;
+    private Integer number;
 
     public Chat(String name, int number) {
         this.chatName = name;
@@ -45,5 +46,17 @@ public class Chat {
                 "name='" + chatName + '\'' +
                 ", number=" + number +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Chat chat)) return false;
+        return getNumber() == chat.getNumber() && Objects.equals(getChatName(), chat.getChatName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getChatName(), getNumber());
     }
 }

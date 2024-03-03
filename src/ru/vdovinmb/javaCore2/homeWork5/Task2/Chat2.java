@@ -3,6 +3,7 @@ package ru.vdovinmb.javaCore2.homeWork5.Task2;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 
 public class Chat2 {
     private String chatName;
@@ -51,5 +52,15 @@ public class Chat2 {
         return userList1; //на выходе список пользователей старше 18
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Chat2 chat2)) return false;
+        return Objects.equals(chatName, chat2.chatName) && Objects.equals(userList, chat2.userList);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(chatName, userList);
+    }
 }
