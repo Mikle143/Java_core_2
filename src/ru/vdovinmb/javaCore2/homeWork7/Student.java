@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class Student {
     private final String name;
     private final String surname;
-    private final int courseNumber;
+    private int courseNumber;
     private final List<Integer> ratings;
 
     public Student(String name, String surname, int courseNumber, List<Integer> ratings) {
