@@ -14,32 +14,33 @@ public final class Util {
     public static void StringJoin(Path path1, Path path2, Path path3, Path path4) throws IOException {
         Scanner scannerItemsName = new Scanner(path1);
         Scanner scannerItemsPrice = new Scanner(path2);
-        Map<String, String> mapName =new HashMap<>();
-        Map<String, String> mapPrice =new HashMap<>();
+        Map<String, String> mapName = new HashMap<>();
+        Map<String, String> mapPrice = new HashMap<>();
         while (scannerItemsName.hasNext()) {
-           String ItemsName=scannerItemsName.nextLine();
-            StringTokenizer stringTokenizer=new StringTokenizer(ItemsName, ",");
+            String ItemsName = scannerItemsName.nextLine();
+            StringTokenizer stringTokenizer = new StringTokenizer(ItemsName, ",");
             String key = stringTokenizer.nextToken();
             String value = stringTokenizer.nextToken();
             mapName.put(key, value);
 
         }
         while (scannerItemsPrice.hasNext()) {
-            String ItemsPrice =scannerItemsPrice.nextLine();
-            StringTokenizer stringTokenizer=new StringTokenizer(ItemsPrice, ",");
+            String ItemsPrice = scannerItemsPrice.nextLine();
+            StringTokenizer stringTokenizer = new StringTokenizer(ItemsPrice, ",");
             String key = stringTokenizer.nextToken();
             String value = stringTokenizer.nextToken();
             mapPrice.put(key, value);
 
         }
-        mapPrice.forEach((k,v)->mapName.merge(k,v,(v1,v2)->v1+", "+v2));
+        mapPrice.forEach((k, v) -> mapName.merge(k, v, (v1, v2) -> v1 + ", " + v2));
         for (Map.Entry<String, String> entry : mapName.entrySet()) {
-                System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
-            }
+            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+        }
         mapSplit(mapName, path3, path4);
 
     }
-    public static  void mapSplit(Map<String, String>mapName, Path path3, Path path4) throws IOException {
+
+    public static void mapSplit(Map<String, String> mapName, Path path3, Path path4) throws IOException {
         try (BufferedWriter writerResult = new BufferedWriter(new FileWriter(path3.toFile(), true))) {
             try (BufferedWriter writerError = new BufferedWriter(new FileWriter(path4.toFile(), true))) {
                 for (Map.Entry<String, String> entry : mapName.entrySet()) {
