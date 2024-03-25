@@ -1,0 +1,21 @@
+package ru.vdovinmb.javaCore2.homeWork10;
+
+import java.io.IOException;
+
+public class Runner {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Util.ListOfComplaints.add("1, 2021-09-13T10:15:30, Иванов Иван, +375 29 999 78 90, Не включается свет");
+        Util.ListOfComplaints.add("2, 2021-09-13T10:15:30, Иванов Иван, +375 29 999 78 90, Не включается свет");
+        Util.ListOfComplaints.add("3, 2021-09-13T10:15:30, Иванов Иван, +375 29 999 78 90, Не включается свет");
+        Util.ListOfComplaints.add("4, 2021-09-13T10:15:30, Иванов Иван, +375 29 999 78 90, Не включается свет");
+        Util.ListOfComplaints.add("5, 2021-12-22T11:38:16, Петров Петр, +375257777765, Не работает интернет");
+        Util.ListOfComplaints.add("6, 2021-09-13T10:15:30, Иванов Иван, +375 29 999 78 90, Не включается свет");
+        Util.ListOfComplaints.add("7, 2021-09-13T10:15:30, Иванов Иван, +375 29 999 78 90, Не включается свет");
+        Util.ListOfComplaints.add("8, 2021-09-13T10:15:30, Иванов Иван, +375 29 999 78 90, Не включается свет");
+
+        ComplaintsThread complaintsThread = new ComplaintsThread();
+        complaintsThread.run();
+        Thread.sleep(500);
+        Util.ReadComplaintsLog();
+    }
+}

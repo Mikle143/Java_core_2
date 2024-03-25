@@ -1,0 +1,53 @@
+package ru.vdovinmb.javaCore2.homeWork10;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Util {
+    static Path path1 = Path.of("src", "ru", "vdovinmb", "javaCore2", "homeWork10", "AfterDispetchers.log");
+    static Path path2 = Path.of("src", "ru", "vdovinmb", "javaCore2", "homeWork10", "Complaints.log");
+    static List<String> ListOfComplaints = new ArrayList<>();
+    private static final Object lock = new Object();
+    static String regex = "(\\d, )(\\d{4}-\\d{2}-\\d{2})T(\\d{2}:\\d{2}:\\d{2}, )[а-яёА-ЯЁ]+\\s[а-яёА-ЯЁ]+, (\\+?)(\\d{3})\\s?(\\d{2})\\s?(\\d{3})\\s?(\\d{2})\\s?(\\d{2}), .*";
+    static List<String> complaints = new ArrayList<>();
+
+    public static void WriteComplaintsLog() throws IOException, InterruptedException {
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path2.toFile(), true))) {
+            bufferedWriter.write(ListOfComplaints.get(0) + "\n");
+            bufferedWriter.write(ListOfComplaints.get(1) + "\n");
+        }
+        Thread.sleep(500);
+    }
+
+    public static void Delete() {
+        ListOfComplaints.remove(1);
+        ListOfComplaints.remove(0);
+    }
+
+    public static void ReadComplaintsLog() throws IOException, InterruptedException {
+        Pattern pattern = Pattern.compile(regex);
+        Scanner scanner = new Scanner(path2.toFile());
+        while (scanner.hasNext()) {
+            String s = scanner.nextLine();
+            complaints.add(s);
+        }
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path1.toFile(), true))) {
+            int size = complaints.size();
+            int FirstIndex = 0;
+            for (int i = FirstIndex; i < size; i++) {
+                Matcher matcher = pattern.matcher(complaints.get(i));
+                while (matcher.find()) {
+                    bufferedWriter.write(matcher.group(1) + matcher.group(2) + " " + matcher.group(3) + "+" + matcher.group(5) + " (" + matcher.group(6) + ")" + " " + matcher.group(7) + "-" + matcher.group(8) + "-" + matcher.group(9) + "\n");
+                }
+            }
+        }
+    }
+}

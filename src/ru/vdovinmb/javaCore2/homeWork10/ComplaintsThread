@@ -1,0 +1,20 @@
+package ru.vdovinmb.javaCore2.homeWork10;
+
+import ru.vdovinmb.javaCore2.homeWork10.Util;
+
+import java.io.IOException;
+
+public class ComplaintsThread implements Runnable {
+    @Override
+    public void run() {
+
+        try {
+            Util.WriteComplaintsLog();
+            Thread.sleep(500);
+            Util.Delete();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+}
